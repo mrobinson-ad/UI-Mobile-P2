@@ -34,11 +34,11 @@
 .textfield > .unity-label {
     align-self: center;
     align-items: auto;
-    top: 30%;
+    top: 20%;
     background-color: rgba(255, 255, 255, 0);
     -unity-background-image-tint-color: rgba(56, 56, 56, 0);
     background-image: none;
-    -unity-font: url('project://database/Assets/Gentleland/SteampunkUI/Fonts/BebasNeue/BebasNeue.ttf?fileID=12800000&guid=843d03ef8be16da4d96629804d86d7f3&type=3#BebasNeue');
+    -unity-font: url('project://database/Assets/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=3cde8a6398ab4554bbe9873293027b06&type=3#NotInter-Regular');
     -unity-font-definition: initial;
     -unity-font-style: bold;
     color: rgb(255, 255, 255);
@@ -58,13 +58,13 @@
 }
 
 .textfield > .unity-base-field__input {
-    width: auto;
-    height: 50%;
-    min-height: 35%;
+    width: 80%;
+    height: 75%;
+    min-height: 15%;
     align-self: center;
     align-items: center;
     justify-content: flex-start;
-    top: 35%;
+    top: 20%;
     -unity-background-scale-mode: stretch-to-fill;
     background-image: url('project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Slots_Arrows.png?fileID=-4972393294115483615&guid=4d6d3e529a32a4141bbac8264745777d&type=3#Steampunk_UI_Slots_Arrows_8');
     background-color: rgba(255, 195, 100, 0.35);
@@ -77,7 +77,7 @@
     padding-bottom: 0;
     padding-left: 5%;
     -unity-slice-scale: 0.7px;
-    max-height: 35%;
+    max-height: 40%;
     -unity-background-image-tint-color: rgb(255, 255, 255);
     -unity-slice-left: 0;
     -unity-slice-right: 0;
@@ -85,6 +85,9 @@
     margin-right: 0;
     color: rgb(255, 255, 255);
     font-size: 260%;
+    max-width: 100%;
+    min-width: 80%;
+    margin-bottom: 0;
 }
 
 .textfield > .unity-text-element {
@@ -102,7 +105,7 @@
 .textfield {
     align-self: center;
     align-items: center;
-    height: 30%;
+    height: 35%;
     width: 80%;
     flex-direction: column;
     -unity-slice-scale: 1px;
@@ -111,4 +114,6 @@
     top: auto;
     flex-grow: 0;
     flex-shrink: 1;
+    min-height: 30%;
+    min-width: 125%;
 }

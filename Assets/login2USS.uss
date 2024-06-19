@@ -1,0 +1,91 @@
+.gear {
+    background-image: url('project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Alternative_Colors_4.png?fileID=-8831441479830076655&guid=fc2c96f1421fbe54e82922ae89afef74&type=3#Steampunk_UI_Alternative_Colors_4_6');
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0);
+    min-width: 30%;
+    min-height: 20%;
+    -unity-slice-scale: 2px;
+    -unity-background-scale-mode: scale-to-fit;
+    max-width: 60%;
+    max-height: 50%;
+    height: auto;
+    align-self: flex-start;
+}
+
+.frame-decoration {
+    align-items: flex-start;
+    width: 50%;
+    height: 20%;
+    max-height: 20%;
+    max-width: 55%;
+    min-height: 15%;
+    min-width: 35%;
+    left: 0;
+    top: 0;
+}
+
+.textfield > .unity-base-field__input {
+    width: auto;
+    height: auto;
+    min-height: 30px;
+    align-self: flex-start;
+    align-items: center;
+    justify-content: center;
+    top: -5%;
+    -unity-background-scale-mode: stretch-to-fill;
+    background-image: url('project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Slots_Arrows.png?fileID=-4972393294115483615&guid=4d6d3e529a32a4141bbac8264745777d&type=3#Steampunk_UI_Slots_Arrows_8');
+    background-color: rgba(255, 199, 109, 0.4);
+    -unity-font: url('project://database/Assets/Gentleland/SteampunkUI/Fonts/Arvo/Arvo.ttf?fileID=12800000&guid=e5c356a4b721b024daa3ce4df25a2a24&type=3#Arvo');
+    -unity-font-definition: initial;
+    -unity-text-align: upper-left;
+    -unity-font-style: normal;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 5%;
+    -unity-slice-scale: 0.3px;
+    max-height: 70px;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    -unity-slice-left: 0;
+    -unity-slice-right: 0;
+    -unity-slice-top: 0;
+    margin-right: 0;
+    color: rgb(255, 255, 255);
+    font-size: 47px;
+    max-width: 100%;
+    min-width: 100%;
+    margin-bottom: 0;
+    white-space: nowrap;
+    border-top-width: -1px;
+    border-right-width: -1px;
+    border-bottom-width: -1px;
+    border-left-width: -1px;
+    visibility: visible;
+    overflow: hidden;
+}
+
+.textfield > .unity-text-element {
+    -unity-font: url('project://database/Assets/Gentleland/SteampunkUI/Fonts/Steam%20Punk%20Flyer.ttf?fileID=12800000&guid=5bd115d01c2d57f49b48e6757552de43&type=3#Steam Punk Flyer');
+    -unity-font-definition: url('project://database/Assets/Gentleland/SteampunkUI/Fonts/Steam%20Punk%20Flyer%20SDF.asset?fileID=11400000&guid=fa7ca5fa214d542428de5e4814eaf4cb&type=2#Steam Punk Flyer SDF');
+    -unity-background-image-tint-color: rgb(56, 56, 56);
+    text-shadow: 0.5px 1px 1px rgb(0, 0, 0);
+    letter-spacing: 0;
+    color: rgb(176, 125, 0);
+    -unity-font-style: normal;
+    text-overflow: ellipsis;
+    -unity-text-align: lower-center;
+    align-self: auto;
+    font-size: 45px;
+    top: 0;
+    flex-grow: 0;
+}
+
+.textfield {
+    flex-direction: column;
+    -unity-font-style: normal;
+    height: 40%;
+    max-height: none;
+    justify-content: space-around;
+}
