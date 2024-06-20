@@ -21,43 +21,88 @@ public class UIManager : MonoBehaviour
 
         loginBtn.clicked += OnLoginBtn_Clicked;
         registerBtn.clicked += OnRegisterBtn_Clicked;
+
+        // Initially hide register button
+        registerBtn.style.display = DisplayStyle.None;
     }
 
-    private void OnLoginBtn_Clicked()
-    {
-        bool hasAt = emailField.value.IndexOf('@') > 0;
+   private void OnLoginBtn_Clicked()
+{
+    bool hasAt = emailField.value.IndexOf('@') > 0;
+    string status = "default";
 
-        if (string.IsNullOrEmpty(emailField.value) || string.IsNullOrEmpty(passwordField.value))
+    if (string.IsNullOrEmpty(emailField.value) || string.IsNullOrEmpty(passwordField.value))
+    {
+        status = "emptyFields";
+    }
+    else if (!hasAt)
+    {
+        status = "invalidEmail";
+    }
+    else
+    {
+        var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
+        if (userEntry != null)
         {
-            statusTxt.style.color = Color.red;
-            statusTxt.text = "Make sure email and password are filled";
-        }
-        else if (emailField.value == "admin@unity.com" && passwordField.value == "password")
-        {
-            statusTxt.style.color = Color.green;
-            statusTxt.text = "Welcome admin";
-        }
-        else if (hasAt)
-        {
-            var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
-            if (userEntry != null)
-            {
-                statusTxt.style.color = Color.green;
-                statusTxt.text = "Welcome " + userEntry.Username;
-            }
-            else
-            {
-                statusTxt.style.color = Color.yellow;
-                statusTxt.text = "Email not found, do you want to register?";
-                registerBtn.style.display = DisplayStyle.Flex; // Show register button
-            }
+            status = "loginSuccess";
         }
         else
         {
-            statusTxt.style.color = Color.red;
-            statusTxt.text = "Email is incorrect";
+            var existingUser = UserManager.Instance.GetUserByEmail(emailField.value);
+            if (existingUser != null)
+            {
+                status = "incorrectPassword";
+            }
+            else
+            {
+                status = "emailNotFound";
+            }
         }
     }
+
+    switch (status)
+    {
+
+        case "emptyFields":
+
+            statusTxt.style.color = Color.red;
+            statusTxt.text = "Make sure email and password are filled";
+            break;
+
+        case "invalidEmail":
+
+            statusTxt.style.color = Color.red;
+            statusTxt.text = "Email is incorrect";
+            break;
+
+        case "loginSuccess":
+
+            var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
+            statusTxt.style.color = Color.green;
+            statusTxt.text = "Welcome " + userEntry.Username;
+            break;
+
+        case "incorrectPassword":
+
+            statusTxt.style.color = Color.red;
+            statusTxt.text = "Password is incorrect";
+            break;
+
+        case "emailNotFound":
+
+            statusTxt.style.color = Color.yellow;
+            statusTxt.text = "Email not found. Would you like to register?";
+            registerBtn.style.display = DisplayStyle.Flex; // Show register button
+            break;
+
+        default:
+
+            statusTxt.style.color = Color.red;
+            statusTxt.text = "An unknown error occurred.";
+            break;
+            
+    }
+}
 
     private void OnRegisterBtn_Clicked()
     {
@@ -65,14 +110,31 @@ public class UIManager : MonoBehaviour
         string[] emailParts = emailField.value.Split('@');
         string username = emailParts[0];
 
+        // Check if the email already exists
+        var existingUser = UserManager.Instance.GetUserByEmail(emailField.value);
+        if (existingUser != null)
+        {
+            statusTxt.style.color = Color.red;
+            statusTxt.text = emailField.value + " is already registered. Please choose a different email.";
+            return;
+        }
+
         // Register the new user
-        UserManager.Instance.AddUserEntry(username, emailField.value, passwordField.value);
+        if (!string.IsNullOrEmpty(emailField.value) && !string.IsNullOrEmpty(passwordField.value))
+        {
+            UserManager.Instance.AddUserEntry(username, emailField.value, passwordField.value);
 
-        // Provide feedback
-        statusTxt.style.color = Color.green;
-        statusTxt.text = "Registration successful for " + username;
+            // Provide feedback
+            statusTxt.style.color = Color.green;
+            statusTxt.text = "Registration successful for " + username;
 
-        // Hide register button after registration
-        registerBtn.style.display = DisplayStyle.None;
+            // Hide register button after registration
+            registerBtn.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            statusTxt.style.color = Color.red;
+            statusTxt.text = "Make sure email and password are filled";
+        }
     }
 }

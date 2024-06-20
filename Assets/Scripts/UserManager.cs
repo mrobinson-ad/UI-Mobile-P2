@@ -35,7 +35,6 @@ public class UserManager : MonoBehaviour
         else
         {
             Debug.Log("User data found, attempting to load...");
-            Debug.Log("JSON Data: " + jsonString);
             userInfos = JsonUtility.FromJson<UserInfo>(jsonString);
             if (userInfos == null || userInfos.userEntries == null || userInfos.userEntries.Count == 0)
             {
@@ -81,7 +80,7 @@ public class UserManager : MonoBehaviour
         string json = JsonUtility.ToJson(userInfos);
         PlayerPrefs.SetString("usersTable", json);
         PlayerPrefs.Save();
-        Debug.Log("User data saved: " + json);
+        Debug.Log("User data saved, total users: " + userInfos.userEntries.Count);
     }
 
     public void AddUserEntry(string username, string email, string password)
@@ -134,7 +133,20 @@ public class UserManager : MonoBehaviour
         return null;
     }
 
-    
+    public UserEntry GetUserByEmail(string email)
+    {
+        if (userInfos != null && userInfos.userEntries != null)
+        {
+            foreach (var userEntry in userInfos.userEntries)
+            {
+                if (userEntry.Email == email)
+                {
+                    return userEntry;
+                }
+            }
+        }
+        return null; // User with this email not found
+    }
 
     private string GenerateSalt()
     {
