@@ -88,9 +88,10 @@ public class UIManager : MonoBehaviour
 
             var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
             statusTxt.style.color = Color.green;
-            FadeIn(statusTxt, 2f);
+            //FadeIn(statusTxt, 2f);
             statusTxt.text = "Welcome " + userEntry.Username;
-            StartCoroutine(LoginAnimation(uiPanel));
+            //StartCoroutine(LoginAnimation(uiPanel));
+            StartLoginAnimation();
 
             break;
 
@@ -174,4 +175,26 @@ public class UIManager : MonoBehaviour
         ve.style.opacity = 0;
         ve.DOFade(1f, 2f);
     }
-}
+    public void StartLoginAnimation()
+    {
+        var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
+        statusTxt.style.color = Color.green;
+        FadeIn(statusTxt, 2f);
+        statusTxt.text = "Welcome " + userEntry.Username;
+
+        float startValue = -15f; // Initial position value
+        float endValue = -110f;  // Target position value
+
+        // Start the animation sequence
+        DOTween.Sequence()
+            .AppendInterval(2) // Wait for 2 seconds
+            .Append(uiPanel.DOMovePercent(Side.Bottom, startValue, endValue, 2f, easePanel.easeType))
+            .AppendInterval(3)
+            .OnComplete(() =>
+            {
+                Debug.Log("Movement complete");
+                gameObject.SetActive(false);
+            });
+        
+    }
+    }
