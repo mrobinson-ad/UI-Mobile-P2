@@ -252,6 +252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291c83f737660094383a22ad1a2cfc57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  easePanel:
+    easeType: 26
 --- !u!1 &2067050882
 GameObject:
   m_ObjectHideFlags: 0

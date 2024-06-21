@@ -160,9 +160,9 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         float panelPos = -15f;
-        DOTween.To(() => panelPos, x => panelPos = x, 95, 2f).SetEase(easePanel.easeType);
+        DOTween.To(() => panelPos, x => panelPos = x, -110, 2f).SetEase(easePanel.easeType);
         ve.style.bottom = Length.Percent(panelPos);
-        while (panelPos != 95)
+        while (panelPos != -110)
         {
             ve.style.bottom = Length.Percent(panelPos);
             yield return new WaitForSeconds(.02f);
