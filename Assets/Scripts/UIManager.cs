@@ -115,7 +115,7 @@ public class UIManager : MonoBehaviour
         if (existingUser != null)
         {
             statusTxt.style.color = Color.red;
-            statusTxt.text = emailField.value + " is already registered. Please choose a different email.";
+            statusTxt.text = existingUser.Username + " is already registered. Please choose a different email.";
             return;
         }
 
