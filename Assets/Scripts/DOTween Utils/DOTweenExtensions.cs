@@ -55,4 +55,5 @@ public static class DOTweenExtensions
             }
         }, endValue, duration).SetEase(easeType);
     }
+
 }

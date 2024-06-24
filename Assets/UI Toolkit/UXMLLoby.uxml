@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
+>
+    <VisualElement name= "root" style="flex-grow: 1; background-color: rgb(3, 0, 26); flex-shrink: 0; min-width: auto; min-height: auto; align-self: auto; align-items: center; justify-content: center; flex-direction: row; margin: 30% 10%;"  >
+        <VisualElement name="user-list-panel" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/BackGround.png?fileID=21300000&amp;guid=b464ee8350ce3984aa31ea54d12d9236&amp;type=3#BackGround&apos;); min-height: 95%; height: auto; max-height: 100%; align-self: center; align-items: center; min-width: 100%; -unity-background-scale-mode: stretch-to-fill; -unity-slice-scale: 1px; justify-content: space-between; max-width: 100%; display: flex; visibility: visible; overflow: visible; flex-shrink: 1; flex-direction: column; margin: 30% 10%;">
+            <Label name= "label-test" text="Hello World" style="color: white; text-align: center;" />
+        </VisualElement>
+    </VisualElement>
+    
+</UXML>

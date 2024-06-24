@@ -32,8 +32,6 @@ public class UIManager : MonoBehaviour
         loginBtn.clicked += OnLoginBtn_Clicked;
         registerBtn.clicked += OnRegisterBtn_Clicked;
 
-        // Initially hide register button
-        registerBtn.style.display = DisplayStyle.None;
     }
 
     #region Button events
@@ -117,7 +115,6 @@ public class UIManager : MonoBehaviour
                 statusTxt.style.color = Color.yellow;
                 FadeIn(statusTxt, 2f);
                 statusTxt.text = "Email not found. Would you like to register?";
-                registerBtn.style.display = DisplayStyle.Flex; // Show register button
                 break;
 
             default:
