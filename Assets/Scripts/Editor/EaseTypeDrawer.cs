@@ -3,6 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 
 [CustomPropertyDrawer(typeof(EaseTypeWrapper))]
+// Custom Drawer that allows DOTween types to be changed in editor with the ability to navigate the dropdown with mousewheel while editing
 public class EaseTypeDrawer : PropertyDrawer
 {
     private bool isHovering = false;

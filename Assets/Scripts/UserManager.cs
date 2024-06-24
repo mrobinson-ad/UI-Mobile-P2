@@ -6,9 +6,27 @@ using UnityEngine;
 
 public class UserManager : MonoBehaviour
 {
-    public static UserManager Instance { get; private set; }
+    public static UserManager Instance { get; private set; } // Singleton
 
-    private UserInfo userInfos;
+    #region UserTable declaration
+    private UserTable userInfos; //contains UserEntry list 
+
+    [Serializable]
+    public class UserTable
+    {
+        public List<UserEntry> userEntries;
+    }
+
+    [Serializable]
+    public class UserEntry
+    {
+        public string Email;
+        public string Username;
+        public string Password;
+        public string Salt;
+    }
+
+    #endregion
 
     private void Awake()
     {
@@ -16,15 +34,15 @@ public class UserManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            InitializeUserInfos();
+            InitializeUserTable();
         }
         else
         {
             Destroy(gameObject);
         }
     }
-
-    private void InitializeUserInfos()
+    #region Initialize UserTable
+    private void InitializeUserTable()
     {
         string jsonString = PlayerPrefs.GetString("usersTable", string.Empty);
         if (string.IsNullOrEmpty(jsonString) || jsonString == "{}")
@@ -35,7 +53,7 @@ public class UserManager : MonoBehaviour
         else
         {
             Debug.Log("User data found, attempting to load...");
-            userInfos = JsonUtility.FromJson<UserInfo>(jsonString);
+            userInfos = JsonUtility.FromJson<UserTable>(jsonString);
             if (userInfos == null || userInfos.userEntries == null || userInfos.userEntries.Count == 0)
             {
                 Debug.LogError("Deserialization failed or data is empty, initializing with default users...");
@@ -56,14 +74,16 @@ public class UserManager : MonoBehaviour
                 }
 
                 // Save updated user information
-                SaveUserInfos();
+                SaveUserTables();
             }
         }
     }
+    #endregion
+    #region UserTable functions
 
     private void InitializeDefaultUsers()
     {
-        userInfos = new UserInfo()
+        userInfos = new UserTable()
         {
             userEntries = new List<UserEntry>()
         };
@@ -72,10 +92,10 @@ public class UserManager : MonoBehaviour
         AddUserEntry("tester", "tester@unity.com", "qwerty");
 
         // Save to PlayerPrefs
-        SaveUserInfos();
+        SaveUserTables();
     }
 
-    private void SaveUserInfos()
+    private void SaveUserTables()
     {
         string json = JsonUtility.ToJson(userInfos);
         PlayerPrefs.SetString("usersTable", json);
@@ -96,7 +116,7 @@ public class UserManager : MonoBehaviour
         // Ensure userInfos and userEntries are not null
         if (userInfos == null)
         {
-            userInfos = new UserInfo()
+            userInfos = new UserTable()
             {
                 userEntries = new List<UserEntry>()
             };
@@ -110,7 +130,7 @@ public class UserManager : MonoBehaviour
         userInfos.userEntries.Add(userEntry);
 
         // Save updated user information
-        SaveUserInfos();
+        SaveUserTables();
     }
 
     public UserEntry ValidateUser(string email, string password)
@@ -147,7 +167,8 @@ public class UserManager : MonoBehaviour
         }
         return null; // User with this email not found
     }
-
+    #endregion
+    #region Encryption
     private string GenerateSalt()
     {
         byte[] saltBytes = new byte[16];
@@ -173,19 +194,8 @@ public class UserManager : MonoBehaviour
             return Convert.ToBase64String(hashBytes);
         }
     }
+    #endregion
 
-    [Serializable]
-    public class UserEntry
-    {
-        public string Email;
-        public string Username;
-        public string Password;
-        public string Salt;
-    }
 
-    [Serializable]
-    public class UserInfo
-    {
-        public List<UserEntry> userEntries;
-    }
+
 }

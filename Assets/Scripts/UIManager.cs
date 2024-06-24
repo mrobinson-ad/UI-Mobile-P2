@@ -5,16 +5,19 @@ using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
+
+    #region UI variables
     private VisualElement root;
     private TextField emailField;
     private TextField passwordField;
     private Button loginBtn;
     private Button registerBtn;
-    private Label statusTxt;
-    private VisualElement uiPanel;
+    private Label statusTxt; // Label used to provide feedback depending on the text field values when buttons are clicked
+    private VisualElement uiPanel; //Includes all components of the Visual Tree Asset except the root background
+    #endregion
 
-    public EaseTypeWrapper easePanel; // Serialize the EaseTypeWrapper
-    
+    public EaseTypeWrapper easePanel; // Serialize the EaseTypeWrapper for panels
+
 
     private void Awake()
     {
@@ -33,93 +36,101 @@ public class UIManager : MonoBehaviour
         registerBtn.style.display = DisplayStyle.None;
     }
 
-   private void OnLoginBtn_Clicked()
-{
-    bool hasAt = emailField.value.IndexOf('@') > 0;
-    string status = "default";
+    #region Button events
 
-    if (string.IsNullOrEmpty(emailField.value) || string.IsNullOrEmpty(passwordField.value))
+
+    private void OnLoginBtn_Clicked()
     {
-        status = "emptyFields";
-    }
-    else if (!hasAt)
-    {
-        status = "invalidEmail";
-    }
-    else
-    {
-        var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
-        if (userEntry != null)
+        #region Login if tree
+        bool hasAt = emailField.value.IndexOf('@') > 0; //Check if email has an @ (upgrade to a real email verification)
+        string status = "default";
+
+        if (string.IsNullOrEmpty(emailField.value) || string.IsNullOrEmpty(passwordField.value))
         {
-            status = "loginSuccess";
+            status = "emptyFields";
+        }
+        else if (!hasAt)
+        {
+            status = "invalidEmail";
         }
         else
         {
-            var existingUser = UserManager.Instance.GetUserByEmail(emailField.value);
-            if (existingUser != null)
+            var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
+            if (userEntry != null)
             {
-                status = "incorrectPassword";
+                status = "loginSuccess";
             }
             else
             {
-                status = "emailNotFound";
+                var existingUser = UserManager.Instance.GetUserByEmail(emailField.value);
+                if (existingUser != null)
+                {
+                    status = "incorrectPassword";
+                }
+                else
+                {
+                    status = "emailNotFound";
+                }
             }
         }
+        #endregion
+
+        #region Login switch
+
+        switch (status)
+        {
+
+            case "emptyFields":
+
+                statusTxt.style.color = Color.red;
+                statusTxt.text = "Make sure email and password are filled";
+                statusTxt.DOShake(1f, 5f);
+                break;
+
+            case "invalidEmail":
+
+                statusTxt.style.color = Color.red;
+                statusTxt.text = "Email is incorrect";
+                statusTxt.DOShake(1f, 5f);
+                break;
+
+            case "loginSuccess":
+
+                var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
+                statusTxt.style.color = Color.green;
+                //FadeIn(statusTxt, 2f);
+                statusTxt.text = "Welcome " + userEntry.Username;
+                //StartCoroutine(LoginAnimation(uiPanel));
+                StartLoginAnimation();
+
+                break;
+
+            case "incorrectPassword":
+
+                statusTxt.style.color = Color.red;
+                statusTxt.text = "Password is incorrect";
+                statusTxt.DOShake(1f, 5f);
+                break;
+
+            case "emailNotFound":
+
+                statusTxt.style.color = Color.yellow;
+                FadeIn(statusTxt, 2f);
+                statusTxt.text = "Email not found. Would you like to register?";
+                registerBtn.style.display = DisplayStyle.Flex; // Show register button
+                break;
+
+            default:
+
+                statusTxt.style.color = Color.red;
+                statusTxt.text = "An unknown error occurred.";
+                statusTxt.DOShake(1f, 5f);
+                break;
+
+        }
+        #endregion
     }
-
-    switch (status)
-    {
-
-        case "emptyFields":
-
-            statusTxt.style.color = Color.red;
-            statusTxt.text = "Make sure email and password are filled";
-            statusTxt.DOShake(1f,5f);
-            break;
-
-        case "invalidEmail":
-
-            statusTxt.style.color = Color.red;
-            statusTxt.text = "Email is incorrect";
-            statusTxt.DOShake(1f,5f);
-            break;
-
-        case "loginSuccess":
-
-            var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
-            statusTxt.style.color = Color.green;
-            //FadeIn(statusTxt, 2f);
-            statusTxt.text = "Welcome " + userEntry.Username;
-            //StartCoroutine(LoginAnimation(uiPanel));
-            StartLoginAnimation();
-
-            break;
-
-        case "incorrectPassword":
-
-            statusTxt.style.color = Color.red;
-            statusTxt.text = "Password is incorrect";
-            statusTxt.DOShake(1f,5f);
-            break;
-
-        case "emailNotFound":
-
-            statusTxt.style.color = Color.yellow;
-            FadeIn(statusTxt, 2f);
-            statusTxt.text = "Email not found. Would you like to register?";
-            registerBtn.style.display = DisplayStyle.Flex; // Show register button
-            break;
-
-        default:
-
-            statusTxt.style.color = Color.red;
-            statusTxt.text = "An unknown error occurred.";
-            statusTxt.DOShake(1f,5f);
-            break;
-            
-    }
-}
-
+    #region Register if tree
     private void OnRegisterBtn_Clicked()
     {
         // Extract username from email (string before '@')
@@ -132,7 +143,7 @@ public class UIManager : MonoBehaviour
         {
             statusTxt.style.color = Color.red;
             statusTxt.text = existingUser.Username + " is already registered. Please choose a different email.";
-            statusTxt.DOShake(1f,5f);
+            statusTxt.DOShake(1f, 5f);
             return;
         }
 
@@ -153,10 +164,14 @@ public class UIManager : MonoBehaviour
         {
             statusTxt.style.color = Color.red;
             statusTxt.text = "Make sure email and password are filled";
-            statusTxt.DOShake(1f,5f);
+            statusTxt.DOShake(1f, 5f);
         }
     }
+    #endregion
 
+    #endregion
+
+    #region DOTween animations
     private IEnumerator LoginAnimation(VisualElement ve)
     {
         yield return new WaitForSeconds(2);
@@ -195,6 +210,7 @@ public class UIManager : MonoBehaviour
                 Debug.Log("Movement complete");
                 gameObject.SetActive(false);
             });
-        
+
     }
-    }
+    #endregion
+}
