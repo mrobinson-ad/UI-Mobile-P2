@@ -1,16 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="UnityEngine.UIElements"
-    xmlns:editor="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
->
-    <VisualElement name= "root" style="justify-content: center; flex-direction: row; margin: 30% 10% ">
-        <VisualElement name= "background" style="color: #03001a; background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Dialogue_2.png?fileID=0&amp;guid=c1d0056efa7a4f547ac230e6a51f5ffc&amp;type=3#Steampunk_UI_Dialogue_2_6&apos;) ">
-            <VisualElement name="user-list-panel" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/BackGround.png?fileID=21300000&amp;guid=b464ee8350ce3984aa31ea54d12d9236&amp;type=3#BackGround&apos;); min-height: 95%; height: auto; max-height: 100%; align-self: center; align-items: center; min-width: 100%; -unity-background-scale-mode: stretch-to-fill; -unity-slice-scale: 1px; justify-content: space-between; max-width: 100%; display: flex; visibility: visible; overflow: visible; flex-shrink: 1; flex-direction: column; margin: 30% 10%;">
-                <Label name= "label-test" text="Hello World!" style="color: white; text-align: center;" />
-            </VisualElement>
-        </VisualElement>
-    </VisualElement>
-    
-</UXML>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="root" style="justify-content: flex-center; flex-direction: row;">
+        <ui:VisualElement name="background" style="background-color: rgb(3, 0, 26); background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/BackGround.png?fileID=21300000&amp;guid=b464ee8350ce3984aa31ea54d12d9236&amp;type=3#BackGround&apos;); width: 80%; height: 60%; align-self: center;">
+            <ui:VisualElement name="user-list-panel" style="-unity-background-scale-mode: stretch-to-fill; justify-content: flex-end; background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/BackGround.png?fileID=21300000&amp;guid=b464ee8350ce3984aa31ea54d12d9236&amp;type=3#BackGround&apos;); min-height: 95%; height: auto; max-height: 100%; align-self: center; align-items: center; min-width: 100%; -unity-background-scale-mode: stretch-to-fill; -unity-slice-scale: 1px; justify-content: space-between; max-width: 100%; display: flex; visibility: visible; overflow: visible; margin: 30% 10%;">
+                <ui:Button name="add-button" text="Add list" style="color: white; text-align: center;" />
+                <ui:ListView name="list-view" style="color: white; text-align: center; font-size: 15px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -25,18 +25,16 @@ public class SpriteSheetInfoEditor : Editor
                 spriteSheetInfo.sprites.Clear();
 
                 var lines = metaContent.Split('\n');
-                bool isSpriteSheet = false;
                 long currentFileID = 0;
                 foreach (var line in lines)
                 {
                     
                     if (line.Trim().StartsWith("first:"))
                     {
-                        isSpriteSheet = true;
                         string fileID = line.Split(':')[1].Trim();
                         currentFileID = long.Parse(fileID);
                     }
-                    if (isSpriteSheet && line.Trim().StartsWith("second:"))
+                    if (line.Trim().StartsWith("second:"))
                     {
                         string spriteName = line.Split(':')[1].Trim();
                         spriteSheetInfo.fileIDs.Add(currentFileID);
@@ -44,7 +42,7 @@ public class SpriteSheetInfoEditor : Editor
                     }
                 }
 
-                if (!isSpriteSheet)
+                if (spriteSheetInfo.sprites.Count <1)
                 {
                     // Treat as a single sprite asset
                     spriteSheetInfo.fileIDs.Add(21300000); // Common fileID for single sprite assets
