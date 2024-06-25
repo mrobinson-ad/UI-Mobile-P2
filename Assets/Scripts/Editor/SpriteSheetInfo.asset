@@ -12,14 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725e9b72970aa114fa4c68f804d635ca, type: 3}
   m_Name: SpriteSheetInfo
   m_EditorClassIdentifier: 
-  spriteSheet: {fileID: 2800000, guid: 2dc12ad8908ff3047bb25165c5b3aee9, type: 3}
-  guid: 2dc12ad8908ff3047bb25165c5b3aee9
-  fileIDs: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  spriteSheet: {fileID: 2800000, guid: b464ee8350ce3984aa31ea54d12d9236, type: 3}
+  guid: b464ee8350ce3984aa31ea54d12d9236
+  fileIDs: 2003450100000000
   sprites:
-  - Steampunk_UI_Alternative_Colors_1_4
-  - Steampunk_UI_Alternative_Colors_1_5
-  - Steampunk_UI_Alternative_Colors_1_1
-  - Steampunk_UI_Alternative_Colors_1_2
-  - Steampunk_UI_Alternative_Colors_1_0
-  - Steampunk_UI_Alternative_Colors_1_6
-  - Steampunk_UI_Alternative_Colors_1_3
+  - BackGround

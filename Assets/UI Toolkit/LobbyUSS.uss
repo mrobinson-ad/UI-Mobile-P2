@@ -1,1 +1,17 @@
-VisualElement {}
+* {
+    
+    -unity-font-definition: url('project://database/Assets/Gentleland/SteampunkUI/Fonts/Steam Punk Flyer.ttf');
+}
+
+VisualElement {
+    align-items: auto;
+    flex-grow: 1;
+    flex-basis: auto;
+    align-self: flex-start;
+    position: relative;
+    flex-direction: row;
+}
+
+
+
+

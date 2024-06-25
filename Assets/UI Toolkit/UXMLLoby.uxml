@@ -1,9 +1,9 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="root" style="justify-content: flex-center; flex-direction: row;">
-        <ui:VisualElement name="background" style="background-color: rgb(3, 0, 26); background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/BackGround.png?fileID=21300000&amp;guid=b464ee8350ce3984aa31ea54d12d9236&amp;type=3#BackGround&apos;); width: 80%; height: 60%; align-self: center;">
-            <ui:VisualElement name="user-list-panel" style="-unity-background-scale-mode: stretch-to-fill; justify-content: flex-end; background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/BackGround.png?fileID=21300000&amp;guid=b464ee8350ce3984aa31ea54d12d9236&amp;type=3#BackGround&apos;); min-height: 95%; height: auto; max-height: 100%; align-self: center; align-items: center; min-width: 100%; -unity-background-scale-mode: stretch-to-fill; -unity-slice-scale: 1px; justify-content: space-between; max-width: 100%; display: flex; visibility: visible; overflow: visible; margin: 30% 10%;">
-                <ui:Button name="add-button" text="Add list" style="color: white; text-align: center;" />
-                <ui:ListView name="list-view" style="color: white; text-align: center; font-size: 15px;" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Style src="./LobbyUSS.uss"/>
+    <ui:VisualElement name="root" style="align-items:center;">
+        <ui:VisualElement name="main-background">
+            <ui:VisualElement name="frame">
+                <ui:Label name="test" text="test label" style="font-size: 15px; color: white;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

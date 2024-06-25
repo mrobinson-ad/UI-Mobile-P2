@@ -16,10 +16,9 @@ public class LobbyManager : MonoBehaviour
 
     void Awake()
     {
-        root = lobbyUI.rootVisualElement;
+        root = GetComponent<UIDocument>().rootVisualElement;
         addButton = root.Q<Button>("add-button");
         list = root.Q<ListView>("list-view");
-
         addButton.clicked += AddClicked;
 
     }
