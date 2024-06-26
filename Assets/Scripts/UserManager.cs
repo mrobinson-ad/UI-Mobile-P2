@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using Unity.VisualScripting;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,16 +12,18 @@ public class UserManager : MonoBehaviour
     public static UserManager Instance { get; private set; } // Singleton
 
     #region UserTable declaration
-    private UserTable userInfos; //contains UserEntry list
 
     public string currentUser; 
+    [SerializeField]
+    private UserInfo userInfos;
+
+    public List<UserEntry> UserTable => userInfos.userEntries; // Expose userEntries as UserTable
 
     [Serializable]
-    public class UserTable
+    public class UserInfo
     {
         public List<UserEntry> userEntries;
     }
-
     [Serializable]
     public class UserEntry
     {
@@ -57,7 +61,7 @@ public class UserManager : MonoBehaviour
         else
         {
             Debug.Log("User data found, attempting to load...");
-            userInfos = JsonUtility.FromJson<UserTable>(jsonString);
+            userInfos = JsonUtility.FromJson<UserInfo>(jsonString);
             if (userInfos == null || userInfos.userEntries == null || userInfos.userEntries.Count == 0)
             {
                 Debug.LogError("Deserialization failed or data is empty, initializing with default users...");
@@ -87,7 +91,7 @@ public class UserManager : MonoBehaviour
 
     private void InitializeDefaultUsers()
     {
-        userInfos = new UserTable()
+        userInfos = new UserInfo()
         {
             userEntries = new List<UserEntry>()
         };
@@ -120,7 +124,7 @@ public class UserManager : MonoBehaviour
         // Ensure userInfos and userEntries are not null
         if (userInfos == null)
         {
-            userInfos = new UserTable()
+            userInfos = new UserInfo()
             {
                 userEntries = new List<UserEntry>()
             };

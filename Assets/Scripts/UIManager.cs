@@ -98,9 +98,7 @@ public class UIManager : MonoBehaviour
 
                 var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
                 statusTxt.style.color = Color.green;
-                //FadeIn(statusTxt, 2f);
                 statusTxt.text = "Welcome " + userEntry.Username;
-                //StartCoroutine(LoginAnimation(uiPanel));
                 StartLoginAnimation();
 
                 break;
@@ -156,8 +154,6 @@ public class UIManager : MonoBehaviour
             FadeIn(statusTxt, 2f);
             statusTxt.text = "Registration successful for " + username;
 
-            // Hide register button after registration
-            registerBtn.style.display = DisplayStyle.None;
         }
         else
         {
@@ -203,7 +199,6 @@ public class UIManager : MonoBehaviour
         DOTween.Sequence()
             .AppendInterval(2) // Wait for 2 seconds
             .Append(uiPanel.DOMovePercent(Side.Bottom, startValue, endValue, 2f, easePanel.easeType))
-            .AppendInterval(2)
             .OnComplete(() =>
             {
                 lobbyUI.SetActive(true);
