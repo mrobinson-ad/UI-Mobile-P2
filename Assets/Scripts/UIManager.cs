@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
 
     public EaseTypeWrapper easePanel; // Serialize the EaseTypeWrapper for panels
 
+    [SerializeField] GameObject lobbyUI; //UIDocument to display when logged in correctly
+
 
     private void Awake()
     {
@@ -201,9 +203,10 @@ public class UIManager : MonoBehaviour
         DOTween.Sequence()
             .AppendInterval(2) // Wait for 2 seconds
             .Append(uiPanel.DOMovePercent(Side.Bottom, startValue, endValue, 2f, easePanel.easeType))
-            .AppendInterval(3)
+            .AppendInterval(2)
             .OnComplete(() =>
             {
+                lobbyUI.SetActive(true);
                 Debug.Log("Movement complete");
                 gameObject.SetActive(false);
             });

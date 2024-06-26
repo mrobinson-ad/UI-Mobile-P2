@@ -20,7 +20,7 @@ public class LobbyManager : MonoBehaviour
         addButton = root.Q<Button>("add-button");
         list = root.Q<ListView>("list-view");
         addButton.clicked += AddClicked;
-
+        AddClicked();
     }
 
     void AddClicked()
@@ -33,7 +33,7 @@ public class LobbyManager : MonoBehaviour
         list.itemsSource = items;
         list.bindItem = (root, i) =>
         {
-            root.Q<Label>().text = i.ToString() + "Hello World!";
+            root.Q<Label>().text = i.ToString() + " " + UserManager.Instance.currentUser;
         };
         list.fixedItemHeight= 60;
         list.selectionType = SelectionType.None;

@@ -2,8 +2,13 @@
     <ui:Style src="./LobbyUSS.uss"/>
     <ui:VisualElement name="root" style="align-items:center;">
         <ui:VisualElement name="main-background">
-            <ui:VisualElement name="frame">
-                <ui:Label name="test" text="test label" style="font-size: 15px; color: white;" />
+            <ui:VisualElement name="panel-background">
+                <ui:VisualElement name="frame">
+                    <ui:VisualElement name="list-panel" class="panel-container">
+                        <ui:Button name="add-button" text="Add User" />
+                        <ui:ListView name="list-view"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

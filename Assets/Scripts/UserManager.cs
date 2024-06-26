@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UserManager : MonoBehaviour
 {
     public static UserManager Instance { get; private set; } // Singleton
 
     #region UserTable declaration
-    private UserTable userInfos; //contains UserEntry list 
+    private UserTable userInfos; //contains UserEntry list
+
+    public string currentUser; 
 
     [Serializable]
     public class UserTable
@@ -27,6 +30,7 @@ public class UserManager : MonoBehaviour
     }
 
     #endregion
+
 
     private void Awake()
     {
@@ -144,7 +148,8 @@ public class UserManager : MonoBehaviour
                     string hashedPassword = HashPassword(password, userEntry.Salt);
                     if (userEntry.Password == hashedPassword)
                     {
-                        return userEntry;
+                        currentUser = userEntry.Username;
+                        return userEntry;                       
                     }
                     break;
                 }

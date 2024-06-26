@@ -58,20 +58,3 @@
 #login-button:hover {
     background-color: #0056b3;
 }
-
-/* Responsive styles */
-@media (max-width: 600px) {
-    #login-form {
-        padding: 15px;
-    }
-    
-    .login-input {
-        font-size: 14px;
-        padding: 10px;
-    }
-    
-    #login-button {
-        font-size: 14px;
-        padding: 10px;
-    }
-}
