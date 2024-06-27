@@ -4,8 +4,7 @@
         <ui:VisualElement name="main-background">
             <ui:VisualElement name="panel-background">
                 <ui:VisualElement name="frame">
-                    <ui:VisualElement name="list-panel" class="panel-container">
-                        <ui:Button name="add-button" text="Add User" />
+                    <ui:VisualElement name="list-panel" >
                         <ui:ListView name="list-view"/>
                     </ui:VisualElement>
                 </ui:VisualElement>

@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725e9b72970aa114fa4c68f804d635ca, type: 3}
   m_Name: SpriteSheetInfo
   m_EditorClassIdentifier: 
-  spriteSheet: {fileID: 2800000, guid: c3cbd015370c5294385a8d880c234850, type: 3}
-  guid: c3cbd015370c5294385a8d880c234850
-  fileIDs: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  spriteSheet: {fileID: 2800000, guid: 44a8b76b70d48db4aa2dcac3eb64eb88, type: 3}
+  guid: 44a8b76b70d48db4aa2dcac3eb64eb88
+  fileIDs: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   sprites:
-  - Steampunk_UI_Frames_3_2
-  - Steampunk_UI_Frames_3_6
-  - Steampunk_UI_Frames_3_3
-  - Steampunk_UI_Frames_3_7
-  - Steampunk_UI_Frames_3_4
-  - Steampunk_UI_Frames_3_1
-  - Steampunk_UI_Frames_3_5
+  - Steampunk_UI_Dialogue_3_1
+  - Steampunk_UI_Dialogue_3_4
+  - Steampunk_UI_Dialogue_3_5
+  - Steampunk_UI_Dialogue_3_2
+  - Steampunk_UI_Dialogue_3_3
+  - Steampunk_UI_Dialogue_3_0

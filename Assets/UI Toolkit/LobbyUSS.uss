@@ -21,23 +21,27 @@
 #panel-background{
     background-image: url('project://database/Assets/Gentleland/SteampunkUI/Art/BackGround.png');
     -unity-background-scale-mode: stretch-to-fill;
+    height: 95%;
 
 }
 
 #frame{
     background-image: url('project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Frames_3.png?fileID=0&amp;guid=c3cbd015370c5294385a8d880c234850&amp;type=3#Steampunk_UI_Frames_3_4');
     -unity-background-scale-mode: stretch-to-fill;
+    height: 115%;
+    margin-bottom: -10%;
+    -unity-slice-scale: 3px;
 }
 
 #add-button{
     width: 50%;
     height: 60px;
-    margin-top: 10%;
+    margin-top: 25%;
     align-self: center;
-    -unity-slice-scale: 1px;
+    -unity-slice-scale: 0.2px;
     font-size: 30px;
     background-color : rgba(0,0,0,0);
-    -unity-background-scale-mode: stretch-to-fill;
+    -unity-background-scale-mode: scale-and-crop;
      background-image: url('project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Buttons_2.png?fileID=0&amp;guid=f85c0b0d6e5acd64185eafcda5d6cba8&amp;type=3#Steampunk_UI_Buttons_2_4');    
  }
 
@@ -46,18 +50,22 @@
     flex-direction: column;
 }
 
+#list-panel{
+    margin-top: 20%;
+}
+
 #list-view{
     
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
-#list-view VisualElement {
-    min-height: 40px;
-}
 
 #list-view > *{
     align-items: auto;
+    flex-shrink: 0;
+    font-size: 18px;
 }
  
 

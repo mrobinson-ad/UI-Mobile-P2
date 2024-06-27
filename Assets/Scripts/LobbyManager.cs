@@ -4,7 +4,6 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Photon.Pun;
-using Unity.VisualScripting;
 using Photon.Realtime;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
@@ -17,38 +16,47 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private ListView list;
     private List<int> items = new List<int>();
     private string user;
-    bool isConnecting;
 
     void Awake()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
-        addButton = root.Q<Button>("add-button");
         list = root.Q<ListView>("list-view");
+        list.virtualizationMethod = CollectionVirtualizationMethod.FixedHeight;
+        list.fixedItemHeight = 90;
+        list.selectionType = SelectionType.None;
+
+        list.makeItem = () => EntryTemplate.Instantiate();
+        list.bindItem = (element, i) => 
+        {
+            var label = element.Q<Label>();
+            if (label != null)
+            {
+                label.text = i.ToString() + " " + PhotonNetwork.PlayerList[i].NickName;
+            }
+        };
         user = UserManager.Instance.currentUser;
-        addButton.clicked += AddClicked;
         PhotonNetwork.ConnectUsingSettings();
     }
-    #region Code To Refactor
+
+    #region Photon Functions
+
     public void LoginUser()
     {
         PhotonNetwork.JoinRandomOrCreateRoom();
     }
 
     [PunRPC]
-    
-    void AddClicked()
+    void AddUser()
     {
-        Debug.Log("another User Joined");
         items.Add(items.Count);
-
-        list.makeItem = () => EntryTemplate.Instantiate();
         list.itemsSource = items;
-        list.bindItem = (root, i) =>
-        { 
-            root.Q<Label>().text = i.ToString() + " " + PhotonNetwork.PlayerList[0].NickName;
-        };
-        list.fixedItemHeight= 90;
-        list.selectionType = SelectionType.None;
+        list.RefreshItems();
+    }
+
+    [PunRPC]
+    void RemoveUser(int actorNumber)
+    {
+        items.RemoveAt(actorNumber);
         list.RefreshItems();
     }
 
@@ -56,19 +64,30 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log(user + "Has joined the room");
-        Player player= PhotonNetwork.LocalPlayer;
+        Player player = PhotonNetwork.LocalPlayer;
         player.NickName = user;
-        photonView.RPC("AddClicked", RpcTarget.AllBuffered);
-        
+        photonView.RPC("AddUser", RpcTarget.AllBuffered);
     }
 
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
-        Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
+        Debug.Log(user + "Has connected to master successfully");
         LoginUser();
     }
 
+    public override void OnLeftRoom()
+    {
+        photonView.RPC("RemoveUser", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
+        WaitForSeconds(2f);
+        base.OnLeftRoom();
+    }
+
     #endregion
+
+    private IEnumerator WaitForSeconds(float time)
+    {
+        yield return new WaitForSeconds(time);
+    }
 
 }
