@@ -25,7 +25,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         addButton = root.Q<Button>("add-button");
         list = root.Q<ListView>("list-view");
         user = UserManager.Instance.currentUser;
-        //addButton.clicked += AddClicked;
+        addButton.clicked += AddClicked;
         PhotonNetwork.ConnectUsingSettings();
     }
     #region Code To Refactor
@@ -45,7 +45,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         list.itemsSource = items;
         list.bindItem = (root, i) =>
         { 
-            root.Q<Label>().text = i.ToString() + " " + PhotonNetwork.PlayerList[i].NickName;
+            root.Q<Label>().text = i.ToString() + " " + PhotonNetwork.PlayerList[0].NickName;
         };
         list.fixedItemHeight= 90;
         list.selectionType = SelectionType.None;

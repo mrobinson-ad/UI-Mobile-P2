@@ -47,15 +47,19 @@
 }
 
 #list-view{
-    align-self: stretch;
+    
     justify-content: center;
     align-items: center;
 }
 
-#list-view > * {
-    padding-top: 10%;
+#list-view VisualElement {
+    min-height: 40px;
 }
 
+#list-view > *{
+    align-items: auto;
+}
+ 
 
 
 
