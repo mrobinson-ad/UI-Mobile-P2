@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -12,7 +13,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] private VisualTreeAsset EntryTemplate;
 
     private VisualElement root;
-    private Button addButton;
+    private Button disconnectButton;
     private ListView list;
     private List<int> items = new List<int>();
     private string user;
@@ -20,6 +21,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     void Awake()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
+        disconnectButton = root.Q<Button>("disconnect-button");
+        disconnectButton.clicked += Disconnect;
         list = root.Q<ListView>("list-view");
         list.virtualizationMethod = CollectionVirtualizationMethod.FixedHeight;
         list.fixedItemHeight = 90;
@@ -30,8 +33,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             var label = element.Q<Label>();
             if (label != null)
+            {   
+                label.text = PhotonNetwork.PlayerList[i].NickName;
+            }
+            if (label.text == user)
             {
-                label.text = i.ToString() + " " + PhotonNetwork.PlayerList[i].NickName;
+                label.style.color = Color.green;
             }
         };
         user = UserManager.Instance.currentUser;
@@ -40,6 +47,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     #region Photon Functions
 
+     void Disconnect()
+    {
+        photonView.RPC("RemoveUser", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
+        StartCoroutine(WaitForSeconds(2f));
+        PhotonNetwork.LeaveRoom();
+    }
     public void LoginUser()
     {
         PhotonNetwork.JoinRandomOrCreateRoom();
@@ -73,14 +86,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnConnectedToMaster();
         Debug.Log(user + "Has connected to master successfully");
-        LoginUser();
+        LoginUser(); //Remember to change this line
     }
 
     public override void OnLeftRoom()
     {
-        photonView.RPC("RemoveUser", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
-        WaitForSeconds(2f);
         base.OnLeftRoom();
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 
     #endregion
