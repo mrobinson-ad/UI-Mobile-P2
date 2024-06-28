@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 using System.Collections;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        // Set all variables references
         root = GetComponent<UIDocument>().rootVisualElement;
         emailField = root.Q<TextField>("EmailField");
         passwordField = root.Q<TextField>("PasswordField");
@@ -31,6 +33,7 @@ public class UIManager : MonoBehaviour
         statusTxt = root.Q<Label>("statusTxt");
         uiPanel = root.Q<VisualElement>("loginPanel");
 
+        //Subscribe to the Clicked events
         loginBtn.clicked += OnLoginBtn_Clicked;
         registerBtn.clicked += OnRegisterBtn_Clicked;
 
@@ -42,6 +45,8 @@ public class UIManager : MonoBehaviour
     private void OnLoginBtn_Clicked()
     {
         #region Login if tree
+
+        //If tree checks the fields' values and changes status that is evaluated in the switch for better clarity
         bool hasAt = emailField.value.IndexOf('@') > 0; //Check if email has an @ (upgrade to a real email verification)
         string status = "default";
 
@@ -55,14 +60,14 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
+            var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value); //Uses UserManager to check if email and password match a single UserEntry
             if (userEntry != null)
             {
                 status = "loginSuccess";
             }
             else
             {
-                var existingUser = UserManager.Instance.GetUserByEmail(emailField.value);
+                var existingUser = UserManager.Instance.GetUserByEmail(emailField.value); //If ValidateUser fails checks if the email is registered to set incorrectPassword and if not prompts the user to register
                 if (existingUser != null)
                 {
                     status = "incorrectPassword";
@@ -76,8 +81,8 @@ public class UIManager : MonoBehaviour
         #endregion
 
         #region Login switch
-
-        switch (status)
+        //Displays different status label depending on the status with DOTween animations (shorthand made compatible with UI Toolkit with DOTweenExtensions)
+        switch (status) 
         {
 
             case "emptyFields":
@@ -90,15 +95,15 @@ public class UIManager : MonoBehaviour
             case "invalidEmail":
 
                 statusTxt.style.color = Color.red;
-                statusTxt.text = "Email is incorrect";
+                statusTxt.text = "Email is invalid";
                 statusTxt.DOShake(1f, 5f);
                 break;
 
             case "loginSuccess":
 
-                var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
+                var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value); //Maybe refactor since the same value setting is made in the if tree
                 statusTxt.style.color = Color.green;
-                statusTxt.text = "Welcome " + userEntry.Username;
+                statusTxt.text = "Welcome " + userEntry.Username; 
                 StartLoginAnimation();
 
                 break;
@@ -135,8 +140,8 @@ public class UIManager : MonoBehaviour
         string username = emailParts[0];
 
         // Check if the email already exists
-        var existingUser = UserManager.Instance.GetUserByEmail(emailField.value);
-        if (existingUser != null)
+        var existingUser = UserManager.Instance.GetUserByEmail(emailField.value); 
+        if (existingUser != null) // Informs the user that the email is already in use
         {
             statusTxt.style.color = Color.red;
             statusTxt.text = existingUser.Username + " is already registered. Please choose a different email.";
@@ -147,9 +152,8 @@ public class UIManager : MonoBehaviour
         // Register the new user
         if (!string.IsNullOrEmpty(emailField.value) && !string.IsNullOrEmpty(passwordField.value))
         {
-            UserManager.Instance.AddUserEntry(username, emailField.value, passwordField.value);
+            UserManager.Instance.AddUserEntry(username, emailField.value, passwordField.value); // Adds an entry in UserManager that is savec locally in a PlayerPref.json (in the future these tables should be stored in a server DB)
 
-            // Provide feedback
             statusTxt.style.color = Color.green;
             FadeIn(statusTxt, 2f);
             statusTxt.text = "Registration successful for " + username;
@@ -180,14 +184,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void FadeIn(VisualElement ve, float duration)
+    private void FadeIn(VisualElement ve, float duration) //Made so you can input a VisualElement and duration and use it to fade in from an alpha 0 to alpha 1 while keeping DOFade more general
     {
         ve.style.opacity = 0;
         ve.DOFade(1f, 2f);
     }
-    public void StartLoginAnimation()
+    public bool  StartLoginAnimation() //return bool for unit testing
     {
-        var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value);
+        
+        var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value); //Maybe refactor for the same reason as the switch case
         statusTxt.style.color = Color.green;
         FadeIn(statusTxt, 2f);
         statusTxt.text = "Welcome " + userEntry.Username;
@@ -195,7 +200,8 @@ public class UIManager : MonoBehaviour
         float startValue = -15f; // Initial position value
         float endValue = -110f;  // Target position value
 
-        // Start the animation sequence
+        // DOTween sequence initiates the animation with an interval to provide better feedback, the Side from which the element moves can be changed with the Side Enum
+        // the values are in % and the easetype is serialized with an editor scrollable dropdown
         DOTween.Sequence()
             .AppendInterval(2) // Wait for 2 seconds
             .Append(uiPanel.DOMovePercent(Side.Bottom, startValue, endValue, 2f, easePanel.easeType))
@@ -205,7 +211,10 @@ public class UIManager : MonoBehaviour
                 Debug.Log("Movement complete");
                 gameObject.SetActive(false);
             });
-
+        return true;
     }
+
+    //public Action OnAnimationStart
+    //public Action OnAnimationEnd
     #endregion
 }

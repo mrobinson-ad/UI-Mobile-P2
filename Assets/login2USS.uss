@@ -45,7 +45,7 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 5%;
-    -unity-slice-scale: 0.3px;
+    -unity-slice-scale: 0.6px;
     max-height: 70px;
     -unity-background-image-tint-color: rgb(255, 255, 255);
     -unity-slice-left: 0;

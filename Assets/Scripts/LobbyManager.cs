@@ -7,8 +7,10 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
+// Manages Connection to Photon and the display of the connected users
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
+    #region Variable declaration
     [SerializeField] private UIDocument lobbyUI;
     [SerializeField] private VisualTreeAsset EntryTemplate;
 
@@ -18,11 +20,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private List<int> items = new List<int>();
     private string user;
 
+    #endregion
+
     void Awake()
-    {
+    { 
         root = GetComponent<UIDocument>().rootVisualElement;
         disconnectButton = root.Q<Button>("disconnect-button");
         disconnectButton.clicked += Disconnect;
+        // To do: study binding items
+        #region Initializes list and binds it 
         list = root.Q<ListView>("list-view");
         list.virtualizationMethod = CollectionVirtualizationMethod.FixedHeight;
         list.fixedItemHeight = 90;
@@ -41,6 +47,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
                 label.style.color = Color.green;
             }
         };
+        #endregion 
         user = UserManager.Instance.currentUser;
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -49,7 +56,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
      void Disconnect()
     {
-        photonView.RPC("RemoveUser", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
+        photonView.RPC("RemoveUser", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber); // logic to be changed, functionality is partial but unreliable
         StartCoroutine(WaitForSeconds(2f));
         PhotonNetwork.LeaveRoom();
     }
@@ -67,9 +74,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void RemoveUser(int actorNumber)
+    void RemoveUser(int actorNumber) // refer to the disconnect comment
     {
-        items.RemoveAt(actorNumber);
+        items.RemoveAt(actorNumber); 
         list.RefreshItems();
     }
 
@@ -86,7 +93,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnConnectedToMaster();
         Debug.Log(user + "Has connected to master successfully");
-        LoginUser(); //Remember to change this line
+        LoginUser(); //Remember to change this line because it doesn't login again if the scene is reloaded
     }
 
     public override void OnLeftRoom()
