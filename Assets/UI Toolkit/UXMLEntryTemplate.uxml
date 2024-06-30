@@ -1,8 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="root" style="align-items: center; flex-shrink: 0;">
-        <ui:VisualElement name="label-holder" style="width: 60%; height: 90px; flex-shrink: 0; background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Dialogue_3.png?fileID=0&amp;guid=44a8b76b70d48db4aa2dcac3eb64eb88&amp;type=3#Steampunk_UI_Dialogue_3_4&apos;); -unity-background-scale-mode: stretch-to-fill; -unity-slice-scale: 0.2px">
-            <ui:Label name="test" text="Hello world!" style="color: white; align-self: center; position: absolute; "/>
+        <ui:VisualElement name="label-holder" style="width: 70%; height: 130px; flex-shrink: 0; background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Alternative_Colors_5.png?fileID=5071157302048042139&amp;guid=6ddd19f288dbbe5439ac47ab6eca4737&amp;type=3#Steampunk_UI_Alternative_Colors_5_2&apos;); -unity-background-scale-mode: stretch-to-fill; -unity-slice-scale: 0.2px; margin-bottom: 20px;">
+            <ui:Label name="test" text="Hello world!" style="color: white; align-self: center; position: absolute; margin-top:12px" />
         </ui:VisualElement>
     </ui:VisualElement>
-
 </ui:UXML>

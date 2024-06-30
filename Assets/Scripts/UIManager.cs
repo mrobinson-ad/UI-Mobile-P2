@@ -3,6 +3,8 @@ using UnityEngine.UIElements;
 using DG.Tweening;
 using System.Collections;
 using System;
+using System.ComponentModel;
+using System.Net.Mail;
 
 public class UIManager : MonoBehaviour
 {
@@ -41,20 +43,19 @@ public class UIManager : MonoBehaviour
 
     #region Button events
 
-
+    
     private void OnLoginBtn_Clicked()
     {
         #region Login if tree
 
         //If tree checks the fields' values and changes status that is evaluated in the switch for better clarity
-        bool hasAt = emailField.value.IndexOf('@') > 0; //Check if email has an @ (upgrade to a real email verification)
         string status = "default";
 
         if (string.IsNullOrEmpty(emailField.value) || string.IsNullOrEmpty(passwordField.value))
         {
             status = "emptyFields";
         }
-        else if (!hasAt)
+        else if (!IsValidMail(emailField.value))
         {
             status = "invalidEmail";
         }
@@ -103,7 +104,9 @@ public class UIManager : MonoBehaviour
 
                 var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value); //Maybe refactor since the same value setting is made in the if tree
                 statusTxt.style.color = Color.green;
-                statusTxt.text = "Welcome " + userEntry.Username; 
+                statusTxt.text = "Welcome " + userEntry.Username;
+                loginBtn.clicked -= OnLoginBtn_Clicked;
+                registerBtn.clicked -= OnRegisterBtn_Clicked; 
                 StartLoginAnimation();
 
                 break;
@@ -150,7 +153,7 @@ public class UIManager : MonoBehaviour
         }
 
         // Register the new user
-        if (!string.IsNullOrEmpty(emailField.value) && !string.IsNullOrEmpty(passwordField.value))
+        if (IsValidMail(emailField.value) && !string.IsNullOrEmpty(passwordField.value) )
         {
             UserManager.Instance.AddUserEntry(username, emailField.value, passwordField.value); // Adds an entry in UserManager that is savec locally in a PlayerPref.json (in the future these tables should be stored in a server DB)
 
@@ -169,6 +172,20 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #endregion
+
+    public bool IsValidMail(string emailaddress) // Checks if the string is a proper email address format
+{
+    try
+    {
+        MailAddress m = new MailAddress(emailaddress);
+
+        return true;
+    }
+    catch (FormatException)
+    {
+        return false;
+    }
+}
 
     #region DOTween animations
     private IEnumerator LoginAnimation(VisualElement ve)
@@ -205,6 +222,7 @@ public class UIManager : MonoBehaviour
         DOTween.Sequence()
             .AppendInterval(2) // Wait for 2 seconds
             .Append(uiPanel.DOMovePercent(Side.Bottom, startValue, endValue, 2f, easePanel.easeType))
+            .AppendInterval(1)
             .OnComplete(() =>
             {
                 lobbyUI.SetActive(true);

@@ -156,6 +156,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lobbyUI: {fileID: 48286602}
   EntryTemplate: {fileID: 9197481963319205126, guid: 1ffb5b4f7fd8fd341820202713f823b6, type: 3}
+  easePanel:
+    easeType: 8
 --- !u!114 &48286602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,8 +207,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 48286601}
+  ObservedComponents: []
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -340,7 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   easePanel:
-    easeType: 27
+    easeType: 26
   lobbyUI: {fileID: 48286600}
 --- !u!1 &2067050882
 GameObject:

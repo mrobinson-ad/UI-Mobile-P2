@@ -1,14 +1,23 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Style src="./LobbyUSS.uss"/>
-    <ui:VisualElement name="root" style="align-items:center;">
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements" 
+         xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         engine="UnityEngine.UIElements" 
+         editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" 
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/LobbyUSS.uss?fileID=7433441132597879392&amp;guid=bb800d9da584c2340a1db5a537b77215&amp;type=3#LobbyUSS" />
+    <ui:VisualElement name="root" style="align-items: center;">
         <ui:VisualElement name="main-background">
-            <ui:VisualElement name="panel-background">
+            <ui:VisualElement name="panel-background" style="height: 95%;">
                 <ui:VisualElement name="frame">
-                    <ui:VisualElement name="list-panel" >
-                        <ui:Label name="list-title" text="Connected Users" style="-unity-text-align: center; align-self: center; color: white; margin-bottom: 60px;"/>
-                        <ui:ListView name="list-view"/>
-                    </ui:VisualElement>
-                    <ui:Button name="disconnect-button" class="user-button" text="DISCONNECT" style="position: absolute; bottom: 15%; right: 10%"/>
+                    <ui:VisualElement name="topLeftDeco" class="frame-decoration" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Alternative_Colors_4.png?fileID=-1657839306104763565&amp;guid=fc2c96f1421fbe54e82922ae89afef74&amp;type=3#Steampunk_UI_Alternative_Colors_4_2&apos;); align-self: flex-start;" />
+                    <ui:VisualElement name="topLeftDeco" class="frame-decoration" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Alternative_Colors_4.png?fileID=-3117552401760922421&amp;guid=fc2c96f1421fbe54e82922ae89afef74&amp;type=3#Steampunk_UI_Alternative_Colors_4_1&apos;); left: auto; top: 0; right: 0; align-self: flex-start;" />
+                    <ui:VisualElement name="bottomLeftDeco" usage-hints="None" class="frame-decoration" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Frames_2.png?fileID=1562457476133989189&amp;guid=9c5cad4f0967446408069f100e1a7dad&amp;type=3#Steampunk_UI_Frames_2_5&apos;); align-self: flex-end; left: 0; top: auto; align-items: auto; justify-content: flex-start; position: absolute; bottom: 5%; width: 45%; max-width: 45%; max-height: 30%; height: 20%; rotate: 300grad;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="list-panel">
+                    <ui:Label name="list-title" text="Connected Users" style="-unity-text-align: center; align-self: center; color: white; margin-bottom: 60px;" />
+                    <ui:ListView name="list-view" />
+                    <ui:Button name="disconnect-button" text="DISCONNECT" class="user-button" style="position: absolute; bottom: 15%; right: 10%;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

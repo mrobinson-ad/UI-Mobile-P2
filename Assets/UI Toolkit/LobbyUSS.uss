@@ -26,27 +26,27 @@
 }
 
 #frame{
-    background-image: url('project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Frames_3.png?fileID=0&amp;guid=c3cbd015370c5294385a8d880c234850&amp;type=3#Steampunk_UI_Frames_3_4');
+    background-image: url('project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Alternative_Colors_4.png?fileID=0&amp;guid=fc2c96f1421fbe54e82922ae89afef74&amp;type=3#Steampunk_UI_Alternative_Colors_4_8');
     -unity-background-scale-mode: stretch-to-fill;
-    height: 115%;
+    height: 105%;
+    width: 106%;
     margin-bottom: -10%;
-    -unity-slice-scale: 3px;
+    -unity-slice-scale: 1.5px;
+    flex-direction: row;
+    position:absolute;
+    top: -3%;
+    left: -3%;
+    right: 0%;
+    bottom: 0%;
 }
 
 .user-button {
     background-image: url('project://database/Assets/Gentleland/SteampunkUI/Art/Steampunk_UI_Buttons_2.png?fileID=6912372366057910295&guid=f85c0b0d6e5acd64185eafcda5d6cba8&type=3#Steampunk_UI_Buttons_2_4');
-    -unity-slice-scale: 0.1px;
+    -unity-slice-scale: 0.2px;
     height: auto;
     width: auto;
     -unity-background-scale-mode: stretch-to-fill;
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
-    border-left-color: rgba(255, 255, 255, 0);
-    border-right-color: rgba(255, 255, 255, 0);
-    border-top-color: rgba(255, 255, 255, 0);
-    border-bottom-color: rgba(255, 255, 255, 0);
+    border-color: rgba(255, 255, 255, 0);
     background-color: rgba(188, 188, 188, 0);
     font-size: 35px;
     -unity-slice-right: 0;
@@ -74,13 +74,32 @@
     display: flex;
 }
 
+.user-button:hover {
+    max-width: 340px;
+    max-height: 100px;
+    width: 90%;
+    height: 125%;
+}
+
+.frame-decoration {
+    align-items: flex-start;
+    width: 50%;
+    height: 20%;
+    max-height: 20%;
+    max-width: 55%;
+    min-height: 15%;
+    min-width: 35%;
+    left: 0;
+    top: 0;
+}
+
 .panel-container{
     justify-content: center;
     flex-direction: column;
 }
 
 #list-panel{
-    margin-top: 20%;
+    margin-top: 35%;
 }
 
 #list-view{
