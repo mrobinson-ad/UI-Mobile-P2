@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
 
     #region Button events
 
-    
+
     private void OnLoginBtn_Clicked()
     {
         #region Login if tree
@@ -83,7 +83,7 @@ public class UIManager : MonoBehaviour
 
         #region Login switch
         //Displays different status label depending on the status with DOTween animations (shorthand made compatible with UI Toolkit with DOTweenExtensions)
-        switch (status) 
+        switch (status)
         {
 
             case "emptyFields":
@@ -106,7 +106,7 @@ public class UIManager : MonoBehaviour
                 statusTxt.style.color = Color.green;
                 statusTxt.text = "Welcome " + userEntry.Username;
                 loginBtn.clicked -= OnLoginBtn_Clicked;
-                registerBtn.clicked -= OnRegisterBtn_Clicked; 
+                registerBtn.clicked -= OnRegisterBtn_Clicked;
                 StartLoginAnimation();
 
                 break;
@@ -143,7 +143,7 @@ public class UIManager : MonoBehaviour
         string username = emailParts[0];
 
         // Check if the email already exists
-        var existingUser = UserManager.Instance.GetUserByEmail(emailField.value); 
+        var existingUser = UserManager.Instance.GetUserByEmail(emailField.value);
         if (existingUser != null) // Informs the user that the email is already in use
         {
             statusTxt.style.color = Color.red;
@@ -153,7 +153,7 @@ public class UIManager : MonoBehaviour
         }
 
         // Register the new user
-        if (IsValidMail(emailField.value) && !string.IsNullOrEmpty(passwordField.value) )
+        if (IsValidMail(emailField.value) && !string.IsNullOrEmpty(passwordField.value))
         {
             UserManager.Instance.AddUserEntry(username, emailField.value, passwordField.value); // Adds an entry in UserManager that is savec locally in a PlayerPref.json (in the future these tables should be stored in a server DB)
 
@@ -174,18 +174,18 @@ public class UIManager : MonoBehaviour
     #endregion
 
     public bool IsValidMail(string emailaddress) // Checks if the string is a proper email address format
-{
-    try
     {
-        MailAddress m = new MailAddress(emailaddress);
+        try
+        {
+            MailAddress m = new MailAddress(emailaddress);
 
-        return true;
+            return true;
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
     }
-    catch (FormatException)
-    {
-        return false;
-    }
-}
 
     #region DOTween animations
     private IEnumerator LoginAnimation(VisualElement ve)
@@ -206,9 +206,9 @@ public class UIManager : MonoBehaviour
         ve.style.opacity = 0;
         ve.DOFade(1f, 2f);
     }
-    public bool  StartLoginAnimation() //return bool for unit testing
+    public bool StartLoginAnimation() //return bool for unit testing
     {
-        
+
         var userEntry = UserManager.Instance.ValidateUser(emailField.value, passwordField.value); //Maybe refactor for the same reason as the switch case
         statusTxt.style.color = Color.green;
         FadeIn(statusTxt, 2f);
