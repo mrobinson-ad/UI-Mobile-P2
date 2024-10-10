@@ -20,9 +20,11 @@ In order to facilitate the use of DOTween with UIToolkit elements I created an e
 You can see below the Tweens I've made to animate the login and disconnect.
   
 > Login animation (and error message)
+> 
 ![The UI eases to the bottom after login in successfully](/Gitassets/connect.gif)
 
 > Disconnect animation
+>
 ![another user disappears from the list then the UI eases to the top after we press disconnect](/Gitassets/disconnect.gif)
 
 <br>
